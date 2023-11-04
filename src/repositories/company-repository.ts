@@ -1,7 +1,6 @@
 import prisma from "../database/db";
 import { Company } from "protocols/protocols";
 export async function insertCompany(company: Company) {
-  console.log(company, "TESTANDO AQUI");
   await prisma.company.create({
     data: {
       nomeCliente: company.nomeCliente,
@@ -15,4 +14,51 @@ export async function insertCompany(company: Company) {
       email: company.email,
     },
   });
+}
+export async function findCompanyById(id:number) {
+  const company = await prisma.company.findFirst({
+    where:{
+      id
+    }
+  })
+  return company;
+}
+export async function findCompanyByCNPJ(cnpj:string) {
+  const company = await prisma.company.findFirst({
+    where:{
+      cnpj
+    }, select: {
+      id: true,
+      nomeCliente: true,
+      razaoSocial: true,
+      cnpj: true,
+      cep: true,
+      endereco: true,
+      numero: true,
+      telefone: true,
+    },
+  })
+  return company;
+}
+export async function deleteCompany(id:number) {
+  await prisma.company.delete({
+    where:{
+      id: id
+    }
+  })
+}
+export async function getAllCompanies() {
+  const companies = await prisma.company.findMany({
+    select: {
+      id: true,
+      nomeCliente: true,
+      razaoSocial: true,
+      cnpj: true,
+      cep: true,
+      endereco: true,
+      numero: true,
+      telefone: true,
+    },
+  });
+  return companies;
 }

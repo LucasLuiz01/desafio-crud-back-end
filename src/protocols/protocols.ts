@@ -9,3 +9,6 @@ export type Company = {
     telefone: string,
     email: string,
 }
+export type CNPJ = {
+    cnpj: string
+}
