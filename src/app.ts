@@ -1,10 +1,6 @@
 import app from "./index";
-// Importe o módulo dotenv e carregue as variáveis de ambiente do arquivo .env
-require('dotenv').config();
-
-// Acesse e imprima o valor da variável DATABASE_URL
-console.log(process.env.DATABASE_URL);
-
-app.listen(4000, () => {
-    console.log(`server rodando na porta 4000}`);
-  });
+require("dotenv").config();
+const port = process.env.PORT || 4000;
+app.listen(port, () => { 
+  console.log(`server rodando na porta ${port}`);
+});

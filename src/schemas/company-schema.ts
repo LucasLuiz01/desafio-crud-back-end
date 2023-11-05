@@ -7,7 +7,7 @@ export const resgisterSchema = Joi.object({
   cnpj: Joi.string().required().length(14),
   cep: Joi.string().required().length(8),
   endereco: Joi.string().required().min(5),
-  numero: Joi.string().required().length(3),
-  telefone: Joi.string().required().length(13),
+  numero: Joi.string().required(),
+  telefone: Joi.string().required().length(11),
   email: Joi.string().required().email(),
 });

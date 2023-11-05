@@ -15,19 +15,39 @@ export async function insertCompany(company: Company) {
     },
   });
 }
-export async function findCompanyById(id:number) {
+export async function updateCompany(company: Company, id: number) {
+  await prisma.company.update({
+    where: {
+      id,
+    },
+    data: company,
+  });
+}
+export async function findCompanyById(id: number) {
   const company = await prisma.company.findFirst({
-    where:{
-      id
-    }
-  })
+    where: {
+      id,
+    },
+    select: {
+      nomeCliente: true,
+      razaoSocial: true,
+      cnpj: true,
+      cep: true,
+      endereco: true,
+      numero: true,
+      telefone: true,
+      senha: true,
+      email: true,
+    },
+  });
   return company;
 }
-export async function findCompanyByCNPJ(cnpj:string) {
+export async function findCompanyByCNPJ(cnpj: string) {
   const company = await prisma.company.findFirst({
-    where:{
-      cnpj
-    }, select: {
+    where: {
+      cnpj,
+    },
+    select: {
       id: true,
       nomeCliente: true,
       razaoSocial: true,
@@ -37,15 +57,15 @@ export async function findCompanyByCNPJ(cnpj:string) {
       numero: true,
       telefone: true,
     },
-  })
+  });
   return company;
 }
-export async function deleteCompany(id:number) {
+export async function deleteCompany(id: number) {
   await prisma.company.delete({
-    where:{
-      id: id
-    }
-  })
+    where: {
+      id: id, 
+    },
+  });
 }
 export async function getAllCompanies() {
   const companies = await prisma.company.findMany({
